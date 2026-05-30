@@ -1,0 +1,2146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Course Portal & Enrollment Ledger — STP Learning Hub</title>
+  
+  <!-- Premium Fonts Pairing -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind/Branding Customizations -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            primary: '#004173',
+            secondary: '#2491bf',
+            success: '#10b981',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Premium Native Transitions */
+    .view-fade {
+      animation: fadeIn 0.4s ease-out-back forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Scrollbar Style for Log consoles */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    /* Print media standard rules for physical voucher copy */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-full {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#f5f7fa] text-gray-800 min-h-screen selection:bg-sky-100 flex flex-col font-sans">
+
+  <!-- TOP BRANDING MARGINLESS HEADER AND ROLE BAR -->
+  <header class="bg-[#004173] text-white py-4 px-6 shadow-sm border-b border-[#2491bf]/30 no-print">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <!-- Minimal Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full border border-sky-400/50 flex items-center justify-center bg-white/10 select-none">
+          <i data-lucide="graduation-cap" class="w-5 h-5 text-sky-300"></i>
+        </div>
+        <div>
+          <h1 class="text-sm font-extrabold tracking-tight">Rohi eSkills Learning Hub</h1>
+          <p class="text-[10px] text-sky-200/90 font-mono uppercase tracking-wider">STP Executive Enrolment Desk</p>
+        </div>
+      </div>
+
+      <!-- Live Workspace Role Toggle -->
+      <div class="flex items-center gap-2 bg-black/20 p-1.5 rounded-xl border border-white/10">
+        <button id="toggle-student" onclick="switchRole('student')" class="role-btn px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-white text-[#004173] shadow-xs">
+          <i data-lucide="user" class="w-3.5 h-3.5"></i>
+          <span>Student Desk</span>
+        </button>
+        <button id="toggle-admin" onclick="switchRole('admin')" class="role-btn px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-sky-200 hover:text-white">
+          <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+          <span>Admin Portal</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP GRID PANEL -->
+  <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6 print-full">
+
+    <!-- 1. STUDENT REGISTRATION VIEW -->
+    <div id="view-student" class="view-fade space-y-6">
+      
+      <!-- Informative Promo Banner -->
+      <div class="bg-gradient-to-r from-[#004173] to-[#2491bf] rounded-2xl p-6 text-white shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6 no-print">
+        <div class="space-y-1">
+          <span class="text-[9px] bg-sky-400/20 text-sky-200 border border-sky-400/30 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">2026 Batch Intake Active</span>
+          <h2 class="text-lg font-bold tracking-tight">Professional IT Training Program (STP)</h2>
+          <p class="text-xs text-sky-100 max-w-xl">
+            Register your coordinates below to calculate tuition fees, generate secure biometric invoice vouchers, and download verifiable ledger slips instantly.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 bg-white/10 p-3 rounded-xl border border-white/10 backdrop-blur-xs font-mono text-[11px]">
+          <i data-lucide="clock" class="w-4 h-4 text-emerald-300"></i>
+          <div>
+            <span class="text-sky-200 block text-[9px]">REGISTRATION WINDOW</span>
+            <span class="font-bold">CLOSING IN 09 DAYS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        
+        <!-- Registration Form Column -->
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden no-print">
+          <div class="px-6 py-5 border-b border-gray-50 flex items-center justify-between bg-gray-50/50">
+            <h3 class="text-xs font-bold text-gray-800 uppercase tracking-widest flex items-center gap-2">
+              <i data-lucide="file-edit" class="w-4 h-4 text-[#004173]"></i>
+              <span>Student Profile Coordinates</span>
+            </h3>
+            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">A4 Official Std</span>
+          </div>
+
+          <form id="enrolment-form" onsubmit="handleFormSubmit(event)" class="p-6 space-y-6">
+            
+            <!-- Standard Form Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              <!-- Selected Course Program -->
+              <div class="space-y-1.5 sm:col-span-2">
+                <label class="text-xs font-bold text-gray-700 block">Selected Course Program <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                  </div>
+                  <select id="form-course" onchange="onCourseChange()" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-[#e20613] font-bold text-gray-700">
+                    <!-- Loaded dynamically via javascript -->
+                  </select>
+                </div>
+              </div>
+
+              <!-- First name -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-700 block">First Name <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                  </div>
+                  <input type="text" id="form-first" required placeholder="John" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500 font-medium">
+                </div>
+              </div>
+
+              <!-- Last name -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-700 block">Last Name <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="user" class="w-4 h-4"></i>
+                  </div>
+                  <input type="text" id="form-last" required placeholder="Doe" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500 font-medium">
+                </div>
+              </div>
+
+              <!-- Father's Name -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-700 block">Father's Name <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="user-check" class="w-4 h-4"></i>
+                  </div>
+                  <input type="text" id="form-father" required placeholder="Father Daniel" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500 font-medium">
+                </div>
+              </div>
+
+              <!-- Gender Selection -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-700 block">Gender Group <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                  </div>
+                  <select id="form-gender" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500 font-bold text-gray-700">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Prefer Not to Say">Prefer Not to Say</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Contact Mobile -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-700 block">Mobile No <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="phone" class="w-4 h-4"></i>
+                  </div>
+                  <input type="tel" id="form-mobile" required placeholder="03XXXXXXXXX" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500 font-mono font-medium">
+                </div>
+                <p class="text-[9px] text-gray-400">11-digit mobile starting with 03</p>
+              </div>
+
+              <!-- CNIC Number -->
+              <div class="space-y-1.5">
+                <label class="text-xs font-bold text-gray-700 block">CNIC Number <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="credit-card" class="w-4 h-4"></i>
+                  </div>
+                  <input type="text" id="form-cnic" required oninput="formatCNIC(this)" placeholder="XXXXX-XXXXXXX-X" maxlength="15" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500 font-mono font-medium">
+                </div>
+                <p class="text-[9px] text-gray-400">National identity format (13 digits with hyphens)</p>
+              </div>
+
+              <!-- Email Address -->
+              <div class="space-y-1.5 sm:col-span-2">
+                <label class="text-xs font-bold text-gray-700 block">Email Address (Primary notification box) <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                  </div>
+                  <input type="email" id="form-email" required placeholder="john.doe@example.com" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500 font-mono font-medium">
+                </div>
+              </div>
+
+              <!-- Home Residential Address -->
+              <div class="space-y-1.5 sm:col-span-2">
+                <label class="text-xs font-bold text-gray-700 block">Home/Shipping Address <span class="text-red-500">*</span></label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 pt-3 flex items-start pointer-events-none text-gray-400">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                  </div>
+                  <textarea id="form-address" required rows="2" placeholder="Street layout, House number, City details" class="w-full text-xs pl-9 pr-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-sky-500 font-medium"></textarea>
+                </div>
+              </div>
+
+              <!-- Laptop Required option -->
+              <div class="sm:col-span-2 hover:bg-gray-50 p-4 border border-gray-100 rounded-xl transition duration-200">
+                <div class="flex items-start justify-between">
+                  <div class="flex gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-sky-50 flex items-center justify-center text-[#004173] flex-shrink-0 mt-0.5">
+                      <i data-lucide="monitor" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <span class="text-xs font-bold text-gray-800 block">Laptop Required for Course training?</span>
+                      <span class="text-[10px] text-gray-400 block mt-0.5 leading-normal max-w-sm">
+                        Adds a 15,000 PKR refundable security surcharge deposit. If checked, physical machine assets are distributed block intake week.
+                      </span>
+                    </div>
+                  </div>
+                  <label class="relative inline-flex items-center cursor-pointer select-none">
+                    <input type="checkbox" id="form-laptop" onchange="updateDynamicSummary()" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#004173]"></div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- ADMIN PORTAL SPECIAL CONTROLS (Only render dynamically or styled as Admin only) -->
+              <div id="admin-only-controls" class="sm:col-span-2 hidden p-4 bg-sky-50/50 border border-sky-100 rounded-xl space-y-4">
+                <div class="flex items-center gap-1 text-[#004173] border-b border-sky-100 pb-2 mb-2">
+                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+                  <span class="text-[10px] uppercase font-extrabold tracking-widest mt-0.5">Authorized Administrative Settings Override</span>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <!-- Custom discount override -->
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold text-gray-600 block">PROMOTIONAL DISCOUNT Overrides (PKR)</label>
+                    <input type="number" id="form-discount" value="0" min="0" oninput="updateDynamicSummary()" class="w-full text-xs px-3 py-2 bg-white border border-sky-200 rounded-lg focus:outline-none focus:border-sky-500 font-mono font-bold">
+                  </div>
+                  <!-- Civil group classification -->
+                  <div class="space-y-1.5">
+                    <label class="text-[10px] font-bold text-gray-600 block">CIVIL GROUPS / CLASSIFICATION</label>
+                    <select id="form-civil" onchange="onCivilStatusChange()" class="w-full text-xs px-3 py-2 bg-white border border-sky-200 rounded-lg focus:outline-none focus:border-sky-500 font-bold text-gray-700">
+                      <option value="Civil" selected>Civil / Non-Concession (Ordinary Civilian)</option>
+                      <option value="Military">Military Service Quota</option>
+                      <option value="Government Employee Child">Government Employee Dependents (15% concession)</option>
+                      <option value="Disabled / Special">Underprivileged / Special Needs (Full Concession Floor)</option>
+                      <option value="STP Alumnus">STP Active Alumnus Group (10% Concession)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Military details wrapper panel -->
+                <div id="form-mil-panel" class="hidden p-4 bg-stone-100 rounded-xl space-y-4 font-sans">
+                  <div class="text-xs font-bold text-[#004173] flex items-center gap-1.5">
+                    <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                    <span>Military Connection Service Credentials</span>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <label class="block text-[10px] font-bold text-gray-500 mb-1">MILITARY CATEGORY</label>
+                      <select id="form-mil-category" onchange="updateDynamicSummary()" class="w-full p-2 bg-white border border-gray-200 rounded-lg font-bold text-gray-700">
+                        <option value="Officer">Officer Cadre</option>
+                        <option value="JCO">JCO / OR Rank Lower Cadre</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-[10px] font-bold text-gray-500 mb-1">MILITARY RANK</label>
+                      <input type="text" id="form-mil-rank" placeholder="e.g. Captain" class="w-full p-2 bg-white border border-gray-200 rounded-lg font-medium">
+                    </div>
+                    <div>
+                      <label class="block text-[10px] font-bold text-gray-500 mb-1">MILITARY UNIT</label>
+                      <input type="text" id="form-mil-unit" placeholder="e.g. 5 Azad Kashmir" class="w-full p-2 bg-white border border-gray-200 rounded-lg font-medium">
+                    </div>
+                    <div>
+                      <label class="block text-[10px] font-bold text-gray-500 mb-1">SOLDIER / OFFICER NAME</label>
+                      <input type="text" id="form-mil-name" placeholder="Name of Serviceman" class="w-full p-2 bg-white border border-gray-200 rounded-lg font-medium">
+                    </div>
+                    <div class="sm:col-span-2">
+                      <label class="block text-[10px] font-bold text-gray-500 mb-1">APPLICANT'S RELATION TO SERVICEMAN</label>
+                      <input type="text" id="form-mil-relation" placeholder="e.g. Son / Daughter / Self" class="w-full p-2 bg-white border border-gray-200 rounded-lg font-medium">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Payment Schedule Selection -->
+                <div class="space-y-2">
+                  <span class="text-[10px] font-bold text-gray-600 block uppercase">Payment Schedule Plan</span>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button type="button" id="plan-btn-full" onclick="setPaymentPlan('Full')" class="p-3 text-left bg-white border-2 border-sky-500 rounded-xl transition">
+                      <span class="text-xs font-bold text-gray-800 block">Full Plan Billing</span>
+                      <span class="text-[9px] text-gray-400 block mt-0.5">Pay all 30k upfront</span>
+                    </button>
+                    <button type="button" id="plan-btn-install" onclick="setPaymentPlan('Installment')" class="p-3 text-left bg-white border border-gray-200 rounded-xl transition">
+                      <span class="text-xs font-bold text-gray-800 block">2 Equal Installments</span>
+                      <span class="text-[9px] text-gray-400 block mt-0.5">1st installment: 15k due now</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Installment Due Date selection -->
+                <div id="installment-due-wrapper" class="hidden space-y-1.5 animate-fade-in">
+                  <label class="text-[10px] font-bold text-sky-800 block">Next Milestone Installment Due Date</label>
+                  <input type="date" id="form-due-date" class="text-xs px-3 py-2 bg-white border border-sky-200 rounded-lg focus:outline-none focus:border-sky-500 font-mono">
+                </div>
+              </div>
+
+              <!-- Locked Payment Plan Badge shown ONLY to student -->
+              <div id="student-plan-info" class="sm:col-span-2 bg-gray-50 border border-gray-100 rounded-xl p-4 flex items-start gap-3">
+                <div class="w-8 h-8 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i data-lucide="lock" class="w-4 h-4"></i>
+                </div>
+                <div class="space-y-1">
+                  <span class="text-xs font-bold text-gray-800 flex items-center gap-1.5">
+                    <span>Full Package Payment Plan</span>
+                    <span class="text-[8px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-extrabold uppercase tracking-widest leading-none">std lock</span>
+                  </span>
+                  <p class="text-[9px] text-gray-400 max-w-md">
+                    Tuition fees are computed in complete single billing (30,000 PKR). Split instalment registrations can be applied for via physical verification desks with an administrator.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- BUTTON ACTIONS -->
+            <div class="pt-4 border-t border-gray-100 flex justify-end gap-3">
+              <button type="button" onclick="resetForm()" class="px-5 py-2.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-xs font-bold transition flex items-center gap-1.5">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                <span>Reset Coordinates</span>
+              </button>
+              <button type="submit" class="px-7 py-2.5 rounded-lg bg-[#004173] text-white hover:bg-[#2491bf] text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+                <i data-lucide="file-check" class="w-4 h-4"></i>
+                <span>Generate Billing Invoice Slip</span>
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Dynamic Billing summary widget on the right -->
+        <div class="bg-gradient-to-br from-slate-900 via-[#01142c] to-slate-950 text-white rounded-2xl p-6 shadow-sm space-y-6 no-print">
+          <div>
+            <span class="text-[8px] font-mono tracking-widest text-sky-400 uppercase font-extrabold block">Live computation</span>
+            <h4 class="text-sm font-bold tracking-tight mt-1 select-none">Tuition Ledger Estimate</h4>
+          </div>
+
+          <div class="space-y-3.5 border-y border-white/10 py-5 font-mono text-[11px] leading-none">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Regular Package Base Surcharge:</span>
+              <span class="font-bold">30,000 PKR</span>
+            </div>
+            
+            <div class="flex justify-between">
+              <span class="text-slate-400">Corporate Laptop Asset Allocation:</span>
+              <span id="widget-laptop-fee" class="font-bold text-gray-400">0 PKR</span>
+            </div>
+
+            <div class="flex justify-between text-yellow-300">
+              <span class="text-slate-400">Authorised Member Discounts:</span>
+              <span id="widget-discount" class="font-bold">-0 PKR</span>
+            </div>
+
+            <div class="border-t border-dashed border-white/10 pt-4 flex justify-between items-end">
+              <span class="text-sky-300 text-[10px] font-sans font-bold uppercase tracking-wider">Estimated Tuition Fee</span>
+              <span id="widget-total" class="text-lg font-extrabold text-emerald-400 font-mono leading-none">30,000 PKR</span>
+            </div>
+          </div>
+
+          <div class="bg-white/5 border border-white/10 p-4 rounded-xl space-y-3">
+            <span class="text-[9px] font-bold text-sky-300 block uppercase tracking-wider font-mono">STP Verification Criteria</span>
+            <p class="text-[10px] text-slate-300 leading-relaxed font-light">
+              Biometric invoice slips issued from this platform carry 9-digit application hash records syncing directly to the academic roster. Ensure CNIC format matches identity cards exactly.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 2. INVOICE VOUCHER SUCCESS SCREEN VIEW -->
+    <div id="view-success" class="view-fade hidden space-y-6 print-full">
+      
+      <!-- Voucher Success Ribbon -->
+      <div class="bg-emerald-50 border border-emerald-100 p-5 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
+        <div class="flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center transform scale-95 flex-shrink-0 animate-bounce">
+            <i data-lucide="check-circle" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-emerald-950">Enrollment Recorded Successfully!</h4>
+            <p class="text-xs text-emerald-700/90 mt-0.5">Please print or download this invoice slip to deposit due payments at any connected branch desk.</p>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="printVoucher()" class="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer">
+            <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+            <span>Print Slip (A4 Copy)</span>
+          </button>
+          <button onclick="returnToForm()" class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+            <span>Register Another</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- TRIPLE COPY SYSTEM (A4 DOUBLE SEGMENT VOUCHER LISTING) -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden print-full">
+        
+        <!-- Parent Container grid for print (Student/Office copy matching) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 divide-y-2 md:divide-y-0 md:divide-x-2 divide-dashed divide-stone-300 md:p-2 bg-stone-50/50 print:divide-x-2 print:grid-cols-2">
+          
+          <!-- STUDENT/APPLICANT COPY -->
+          <div class="p-6 md:p-8 space-y-6 bg-white print:p-4">
+            <!-- Header Brand Details -->
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="text-xs font-extrabold text-[#004173] tracking-tight uppercase">Rohi eSkills Learning Hub</h4>
+                <p class="text-[9px] text-[#2491bf] font-extrabold uppercase font-mono tracking-wider">Intake Admissions Batch 2026</p>
+                <div class="inline-block mt-2 bg-sky-100 text-[#004173] text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider font-mono">
+                  Student Copy · Payable Bank Desk
+                </div>
+              </div>
+              <div class="w-12 h-12 rounded-full border-2 border-[#009ab5] flex items-center justify-center p-1 flex-shrink-0">
+                <i data-lucide="graduation-cap" class="w-6 h-6 text-[#004173]"></i>
+              </div>
+            </div>
+
+            <!-- Invoice meta barcodes grid -->
+            <div class="bg-stone-50 p-3 rounded-lg border border-stone-200/60 grid grid-cols-2 gap-3 text-[10px] font-mono leading-relaxed">
+              <div>
+                <span class="text-gray-400 block uppercase font-bold text-[8px]">APPLICATION REGISTER ID</span>
+                <span id="v-reg-id" class="text-gray-900 font-extrabold">STP-47228</span>
+              </div>
+              <div>
+                <span class="text-gray-400 block uppercase font-bold text-[8px]">SUBMISSION WINDOW</span>
+                <span id="v-createdAt" class="text-gray-900 font-extrabold">2026-05-20</span>
+              </div>
+              <div>
+                <span class="text-gray-400 block uppercase font-bold text-[8px]">PAYMENT SCHEME</span>
+                <span id="v-plan" class="text-gray-900 font-extrabold">Full Package</span>
+              </div>
+              <div>
+                <span class="text-gray-400 block uppercase font-bold text-[8px]">LEDGER STATUS</span>
+                <span class="text-amber-800 font-extrabold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500 block"></span>
+                  <span>PENDING VERIFY</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Personal Data table profile -->
+            <div class="space-y-2">
+              <span class="text-[9px] font-mono uppercase font-bold tracking-widest text-[#004173] block border-b border-stone-200 pb-1">Biometric Applicant Roster</span>
+              <div class="grid grid-cols-2 gap-y-1.5 gap-x-4 text-[10px]">
+                <div><span class="text-gray-400">FullName:</span> <span id="v-fullname" class="font-semibold text-gray-800 ml-1">John Doe</span></div>
+                <div><span class="text-gray-400">FatherName:</span> <span id="v-father" class="font-semibold text-gray-800 ml-1">Father Daniel</span></div>
+                <div><span class="text-gray-400">CNIC Number:</span> <span id="v-cnic" class="font-semibold text-gray-800 font-mono ml-1">37405-242314-1</span></div>
+                <div><span class="text-gray-400">Contact Number:</span> <span id="v-mobile" class="font-semibold text-gray-800 font-mono ml-1">0341731604</span></div>
+                <div class="col-span-2"><span class="text-gray-400">Email Address:</span> <span id="v-email" class="font-semibold text-gray-800 font-mono ml-1">john@gmail.com</span></div>
+                <div class="col-span-2 truncate"><span class="text-gray-400">Residential Address:</span> <span id="v-address" class="font-semibold text-gray-800 ml-1">Rawalpindi, Cantt</span></div>
+                <div class="col-span-2"><span class="text-gray-400">Selected Course:</span> <span id="v-course" class="font-extrabold text-[#004173] ml-1">Web Design & Development</span></div>
+              </div>
+            </div>
+
+            <!-- Detailed Billing Calculation Block -->
+            <div class="space-y-2">
+              <span class="text-[9px] font-mono uppercase font-bold tracking-widest text-[#004173] block border-b border-stone-200 pb-1">Tuition Fees Ledger Breakdown</span>
+              <div class="space-y-1.5 font-mono text-[10px] leading-none">
+                <div class="flex justify-between"><span class="text-gray-400">STP Course Regular Tuition Surcharge:</span> <span id="v-base" class="font-bold text-gray-700">30,000 PKR</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Physical Asset Lease Surcharge (Laptop Required):</span> <span id="v-laptop-fee" class="font-bold text-gray-700">0 PKR</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Administrative Rebates / Discounts:</span> <span id="v-discount-fee" class="font-bold text-emerald-600">-0 PKR</span></div>
+                <div class="border-t border-stone-200 pt-2 flex justify-between font-bold text-gray-900 text-xs leading-none">
+                  <span>Net Ledger Total Amount Payable:</span>
+                  <span id="v-net" class="text-stone-950 font-extrabold text-sm font-mono">30,000 PKR</span>
+                </div>
+                <!-- 50:50 Dynamic Installments Breakout -->
+                <div id="v-installment-wrapper" class="hidden border-t border-dashed border-sky-300 pt-2 space-y-1 text-sky-900 font-bold">
+                  <div class="flex justify-between"><span class="text-sky-700">1st Installment (Due Today):</span> <span id="v-installment-1" class="font-mono">15,000 PKR</span></div>
+                  <div class="flex justify-between"><span class="text-sky-700">2nd Installment:</span> <span id="v-installment-2" class="font-mono">15,000 PKR</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Signatures dynamic spacing -->
+            <div class="pt-8 grid grid-cols-2 gap-4 text-center text-[9px] font-bold">
+              <div class="space-y-1">
+                <div class="border-b border-stone-400 h-8"></div>
+                <span class="text-gray-400 tracking-wider">Depositor Signature</span>
+              </div>
+              <div class="space-y-1">
+                <div class="border-b border-stone-400 h-8"></div>
+                <span class="text-[#004173] tracking-wider">STP Roster Officer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- OFFICE / BANK DESK RECEIPT COPY -->
+          <div class="p-6 md:p-8 space-y-6 bg-white print:p-4">
+            <!-- Header Brand Details -->
+            <div class="flex justify-between items-start">
+              <div>
+                <h4 class="text-xs font-extrabold text-[#004173] tracking-tight uppercase">Rohi eSkills Learning Hub</h4>
+                <p class="text-[9px] text-[#2491bf] font-extrabold uppercase font-mono tracking-wider">Intake Admissions Batch 2026</p>
+                <div class="inline-block mt-2 bg-amber-100 text-amber-800 text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider font-mono">
+                  Office Desk Copy · Verification Record
+                </div>
+              </div>
+              <div class="w-12 h-12 rounded-full border-2 border-stone-300 flex items-center justify-center p-1 flex-shrink-0">
+                <i data-lucide="shield-check" class="w-6 h-6 text-[#2491bf]"></i>
+              </div>
+            </div>
+
+            <!-- Invoice meta barcodes grid -->
+            <div class="bg-stone-50 p-3 rounded-lg border border-stone-200/60 grid grid-cols-2 gap-3 text-[10px] font-mono leading-relaxed">
+              <div>
+                <span class="text-gray-400 block uppercase font-bold text-[8px]">APPLICATION REGISTER ID</span>
+                <span id="v2-reg-id" class="text-gray-900 font-extrabold">STP-47228</span>
+              </div>
+              <div>
+                <span class="text-gray-400 block uppercase font-bold text-[8px]">SUBMISSION WINDOW</span>
+                <span id="v2-createdAt" class="text-gray-900 font-extrabold">2026-05-20</span>
+              </div>
+              <div>
+                <span class="text-gray-400 block uppercase font-bold text-[8px]">PAYMENT SCHEME</span>
+                <span id="v2-plan" class="text-gray-900 font-extrabold">Full Package</span>
+              </div>
+              <div>
+                <span class="text-gray-400 block uppercase font-bold text-[8px]">LEDGER STATUS</span>
+                <span class="text-amber-800 font-extrabold flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500 block"></span>
+                  <span>PENDING VERIFY</span>
+                </span>
+              </div>
+            </div>
+
+            <!-- Personal Data table profile -->
+            <div class="space-y-2">
+              <span class="text-[9px] font-mono uppercase font-bold tracking-widest text-[#004173] block border-b border-stone-200 pb-1">Biometric Applicant Roster</span>
+              <div class="grid grid-cols-2 gap-y-1.5 gap-x-4 text-[10px]">
+                <div><span class="text-gray-400">FullName:</span> <span id="v2-fullname" class="font-semibold text-gray-800 ml-1">John Doe</span></div>
+                <div><span class="text-gray-400">FatherName:</span> <span id="v2-father" class="font-semibold text-gray-800 ml-1">Father Daniel</span></div>
+                <div><span class="text-gray-400">CNIC Number:</span> <span id="v2-cnic" class="font-semibold text-gray-800 font-mono ml-1">37405-242314-1</span></div>
+                <div><span class="text-gray-400">Contact Number:</span> <span id="v2-mobile" class="font-semibold text-gray-800 font-mono ml-1">0341731604</span></div>
+                <div class="col-span-2"><span class="text-gray-400">Email Address:</span> <span id="v2-email" class="font-semibold text-gray-800 font-mono ml-1">john@gmail.com</span></div>
+                <div class="col-span-2 truncate"><span class="text-gray-400">Residential Address:</span> <span id="v2-address" class="font-semibold text-gray-800 ml-1">Rawalpindi, Cantt</span></div>
+                <div class="col-span-2"><span class="text-gray-400">Selected Course:</span> <span id="v2-course" class="font-extrabold text-[#004173] ml-1">Web Design & Development</span></div>
+              </div>
+            </div>
+
+            <!-- Detailed Billing Calculation Block -->
+            <div class="space-y-2">
+              <span class="text-[9px] font-mono uppercase font-bold tracking-widest text-[#004173] block border-b border-stone-200 pb-1">Tuition Fees Ledger Breakdown</span>
+              <div class="space-y-1.5 font-mono text-[10px] leading-none">
+                <div class="flex justify-between"><span class="text-gray-400">STP Course Regular Tuition Surcharge:</span> <span id="v2-base" class="font-bold text-gray-700">30,000 PKR</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Physical Asset Lease Surcharge (Laptop Required):</span> <span id="v2-laptop-fee" class="font-bold text-gray-700">0 PKR</span></div>
+                <div class="flex justify-between"><span class="text-gray-400">Administrative Rebates / Discounts:</span> <span id="v2-discount-fee" class="font-bold text-emerald-600">-0 PKR</span></div>
+                <div class="border-t border-stone-200 pt-2 flex justify-between font-bold text-gray-900 text-xs leading-none">
+                  <span>Net Ledger Total Amount Payable:</span>
+                  <span id="v2-net" class="text-stone-950 font-extrabold text-sm font-mono">30,000 PKR</span>
+                </div>
+                <!-- 50:50 Dynamic Installments Breakout -->
+                <div id="v2-installment-wrapper" class="hidden border-t border-dashed border-sky-300 pt-2 space-y-1 text-sky-900 font-bold">
+                  <div class="flex justify-between"><span class="text-sky-700">1st Installment (Due Today):</span> <span id="v2-installment-1" class="font-mono">15,000 PKR</span></div>
+                  <div class="flex justify-between"><span class="text-sky-700">2nd Installment:</span> <span id="v2-installment-2" class="font-mono">15,000 PKR</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Signatures dynamic spacing -->
+            <div class="pt-8 grid grid-cols-2 gap-4 text-center text-[9px] font-bold">
+              <div class="space-y-1">
+                <div class="border-b border-stone-400 h-8"></div>
+                <span class="text-gray-400 tracking-wider">Authorized Bank Stamp</span>
+              </div>
+              <div class="space-y-1">
+                <div class="border-b border-stone-400 h-8"></div>
+                <span class="text-[#2491bf] tracking-wider">Ledger Security Audit</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 3. ADMINISTRATIVE CONTROL DESK (LEDGER HUB) -->
+    <div id="view-admin" class="view-fade hidden space-y-6 no-print">
+      
+      <!-- Performance Analytics Header banner -->
+      <div class="bg-gradient-to-r from-[#004173] to-[#2491bf] p-6 rounded-2xl text-white shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-5 h-5 text-sky-300 animate-pulse"></i>
+            <h4 class="text-base font-bold tracking-tight">Real-Time Performance Analytics Desk</h4>
+          </div>
+          <p class="text-xs text-sky-100/95 mt-1 max-w-xl font-light">
+            Live insights on student enrollment registration, due fee collection trends, verification ledger statistics, and active acquisition pools.
+          </p>
+        </div>
+        <div class="flex gap-4 bg-white/10 p-3 rounded-xl border border-white/10 backdrop-blur-xs font-mono text-[10px]">
+          <div>
+            <span class="text-sky-200 block uppercase">Ledger efficiency</span>
+            <span id="stat-efficiency" class="text-base font-extrabold block">75%</span>
+          </div>
+          <div class="border-l border-white/20 pl-3">
+            <span class="text-sky-200 block uppercase">Total Pool Revenue</span>
+            <span id="stat-gross" class="text-base font-extrabold block text-emerald-300">125,000 PKR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Metric Cards Row -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-center gap-4">
+          <div class="p-3 bg-emerald-500 text-white rounded-lg">
+            <i data-lucide="dollar-sign" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-emerald-800 font-bold uppercase tracking-wider block">Verified Collected Fee</span>
+            <span id="metric-collected" class="text-lg font-bold text-emerald-950 block mt-0.5">90,000 PKR</span>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 flex items-center gap-4">
+          <div class="p-3 bg-amber-500 text-white rounded-lg">
+            <i data-lucide="alert-circle" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-amber-800 font-bold uppercase tracking-wider block">Pending Invoice Slip Revenue</span>
+            <span id="metric-pending" class="text-lg font-bold text-amber-950 block mt-0.5">35,000 PKR</span>
+          </div>
+        </div>
+
+        <div class="bg-sky-50 border border-sky-100 rounded-xl p-4 flex items-center gap-4">
+          <div class="p-3 bg-sky-600 text-white rounded-lg">
+            <i data-lucide="activity" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-[10px] text-sky-800 font-bold uppercase tracking-wider block">Average Deal Value</span>
+            <span id="metric-average" class="text-lg font-bold text-sky-950 block mt-0.5">31,250 PKR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMBEDDED LIGHTWEIGHT STANDALONE SVG INTEGRATED CHARTS BAR -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Graph 1: Enrollment Frequency line -->
+        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-xs lg:col-span-2 flex flex-col justify-between">
+          <div class="flex items-center justify-between border-b border-gray-50 pb-3 mb-4">
+            <h5 class="text-xs font-bold text-gray-800 uppercase tracking-wide flex items-center gap-1.5">
+              <i data-lucide="calendar" class="w-4 h-4 text-[#004173]"></i>
+              <span>Admission Frequency Milestones</span>
+            </h5>
+            <span class="text-[9px] text-gray-400 font-semibold bg-gray-50 px-2 py-0.5 rounded">A4 Real-Time Thread</span>
+          </div>
+
+          <!-- Dynamic SVG Line Chart -->
+          <div id="chart-signup-container" class="h-[200px] w-full flex items-center justify-center">
+            <!-- Rendered script-wise -->
+          </div>
+        </div>
+
+        <!-- Graph 2: Payment Distribution pie -->
+        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between border-b border-gray-50 pb-3 mb-4">
+            <h5 class="text-xs font-bold text-gray-800 uppercase tracking-wide flex items-center gap-1.5">
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+              <span>Verification Ledger Status</span>
+            </h5>
+          </div>
+
+          <!-- Pie SVG block -->
+          <div id="chart-status-container" class="h-[150px] w-full relative flex items-center justify-center">
+            <!-- Rendered script-wise -->
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-[9px] font-bold text-gray-600 pt-2 border-t border-gray-50 bg-gray-50/50 p-2 rounded-lg mt-2">
+            <div class="flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 block"></span>
+              <span>Verified Ledger</span>
+              <span id="donut-lbl-verified" class="text-gray-400 ml-auto">(0)</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500 block"></span>
+              <span>Pending</span>
+              <span id="donut-lbl-pending" class="text-gray-400 ml-auto">(0)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Graph 3: Collected vs Pending bar chart -->
+        <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-xs lg:col-span-3 flex flex-col justify-between">
+          <div class="flex items-center justify-between border-b border-gray-50 pb-3 mb-4">
+            <h5 class="text-xs font-bold text-gray-800 uppercase tracking-wide flex items-center gap-1.5">
+              <i data-lucide="dollar-sign" class="w-4 h-4 text-emerald-600"></i>
+              <span>Revenue stream comparison: Collected vs Pending (PKR)</span>
+            </h5>
+          </div>
+
+          <!-- Dynamic SVG bar comparison chart -->
+          <div id="chart-revenue-container" class="h-[180px] w-full mt-2">
+            <!-- Rendered script-wise -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MAIN LEDGER DATABASE RECORD TABLE PANEL -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+        <div class="flex flex-col sm:flex-row gap-3 items-center justify-between mb-4 border-b border-gray-50 pb-4">
+          <div>
+            <h4 class="text-xs font-bold text-gray-800 uppercase tracking-wide">Course Registrants Registry</h4>
+            <p class="text-[10px] text-gray-400 mt-1">Search, update discount overrides, verify slips, or launch printable dual copies.</p>
+          </div>
+          
+          <div class="relative w-full sm:w-72">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+              <i data-lucide="search" class="w-3.5 h-3.5"></i>
+            </div>
+            <input type="text" id="admin-search" oninput="renderTable()" placeholder="Filter table records..." class="w-full text-xs pl-8 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-[#2491bf]">
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-gray-100 text-gray-400 uppercase tracking-wider font-bold text-[9px] bg-gray-50/50">
+                <th class="py-3 px-4">Student ID / Code</th>
+                <th class="py-3 px-4">Contact Profile</th>
+                <th class="py-3 px-4">Academic Specifics</th>
+                <th class="py-3 px-4">Subtotal Due</th>
+                <th class="py-3 px-4">Verification Ledger</th>
+                <th class="py-3 px-4 text-right">Administrative Actions</th>
+              </tr>
+            </thead>
+            <tbody id="registry-table-body" class="divide-y divide-gray-50">
+              <!-- Rendered script-wise -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── GOOGLE SHEETS INTEGRATION BLOCK ── -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 space-y-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-gray-100 pb-4">
+          <div>
+            <h4 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+              <i data-lucide="database" class="w-4 h-4 text-[#004173]"></i>
+              <span>Google Sheets Integration Node</span>
+            </h4>
+            <p class="text-xs text-gray-500 mt-1">
+              Connect your React LMS to Google Sheets dynamically using Google Apps Script Web Service.
+            </p>
+          </div>
+          <div class="flex items-center gap-1.5 bg-green-50 text-green-700 px-3 py-1 rounded-full text-[10px] font-bold border border-green-100 font-mono">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 block animate-pulse"></span>
+            <span>SHEETS DRIVER READY</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- CONFIGURATION COLUMN -->
+          <div class="space-y-4 lg:col-span-1 border-r border-gray-100 pr-0 lg:pr-6">
+            <div class="space-y-1.5">
+              <label class="text-xs font-bold text-gray-700 block">
+                Deployed Web Service Web App URL
+              </label>
+              <input
+                type="url"
+                id="sheets-url-input"
+                onchange="saveAppsScriptConfig()"
+                placeholder="https://script.google.com/macros/s/.../exec"
+                class="w-full text-xs p-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:bg-white focus:border-[#2491bf] font-mono"
+              />
+              <p class="text-[9px] text-gray-400 leading-normal">
+                Copy the "Web App URL" from the Apps Script deployment screen and paste it here.
+              </p>
+            </div>
+
+            <div class="flex items-center justify-between p-3.5 bg-gray-50/50 rounded-xl border border-gray-100">
+              <div class="pr-2">
+                <span class="text-xs font-bold text-gray-700 block">Automated Sync Push</span>
+                <span class="text-[9px] text-gray-400 block leading-relaxed max-w-[160px]">
+                  Instantly sync data on student registration or verification.
+                </span>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  id="sheets-autosync-toggle"
+                  onchange="saveAppsScriptConfig()"
+                  class="sr-only peer"
+                />
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+              </label>
+            </div>
+
+            <div class="pt-2 space-y-2">
+              <button
+                onclick="testSheetsConnection()"
+                class="w-full text-xs font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 border border-sky-200 bg-white text-[#004173] hover:bg-sky-55 transition"
+              >
+                <i data-lucide="database" class="w-3.5 h-3.5"></i>
+                <span>Test Connection</span>
+              </button>
+
+              <button
+                onclick="triggerBulkSyncToSheets()"
+                class="w-full text-xs font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 bg-[#004173] text-white hover:bg-[#2491bf] transition"
+              >
+                <i data-lucide="refresh-cw" id="sheets-sync-spinner" class="w-3.5 h-3.5"></i>
+                <span>Sync All Records to Sheet</span>
+              </button>
+              
+              <span id="sheets-sync-status" class="text-[9px] text-gray-400 block text-center mt-1 font-semibold"></span>
+            </div>
+          </div>
+
+          <!-- INSTRUCTIONS COLUMN -->
+          <div class="lg:col-span-2 space-y-4">
+            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 space-y-3">
+              <span class="text-xs font-bold text-[#004173] flex items-center gap-1.5 uppercase tracking-wider">
+                <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                <span>Google Sheet Integration Steps (Minutes to Setup)</span>
+              </span>
+              <ol class="text-[11px] text-gray-600 space-y-1.5 list-decimal list-inside leading-relaxed pl-1.5 font-light">
+                <li>Create a new <strong class="text-gray-900">Google Sheet</strong> and make sure the working sheet tab name is exactly <strong class="text-gray-900">Enrolments</strong>.</li>
+                <li>In the Google Sheets menu, navigate to <strong class="text-gray-900">Extensions &gt; Apps Script</strong>.</li>
+                <li>Delete any dummy code present, and <strong class="text-gray-900">Paste</strong> the script code provided below.</li>
+                <li>Click the <strong class="text-gray-900">Deploy &gt; New deployment</strong> button.</li>
+                <li>Select configuration type <strong class="text-gray-900">Web App</strong>. Set "Execute as" to <strong class="text-gray-900">Me</strong> and "Who has access" to <strong class="text-gray-900">Anyone</strong> (crucial for fetch access).</li>
+                <li>Click Deploy, approve standard OAuth prompts, copy the generated <strong class="text-gray-900">Web App URL</strong>, and paste it into the Config box on the left!</li>
+              </ol>
+            </div>
+
+            <!-- CODE COPY BOX -->
+            <div class="space-y-2">
+              <div class="flex justify-between items-center bg-gray-900 text-gray-200 px-4 py-2 rounded-t-lg text-xs font-bold font-mono">
+                <span class="flex items-center gap-1.5">
+                  <i data-lucide="file-text" class="w-3.5 h-3.5 text-orange-400"></i>
+                  <span>Code.gs (Apps Script Source)</span>
+                </span>
+                <button
+                  onclick="copyAppsScriptCode()"
+                  class="hover:text-white flex items-center gap-1 text-[10px] font-semibold bg-white/10 px-2 py-1 rounded hover:bg-white/20 transition"
+                >
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span>Copy Code</span>
+                </button>
+              </div>
+              <div class="bg-gray-950 text-gray-300 p-4 rounded-b-lg text-[9px] font-mono max-h-[160px] overflow-y-auto leading-relaxed border border-gray-900">
+                <pre id="code-snippet-box" class="whitespace-pre"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- POPUP EDIT RECORD DIALOG MODAL -->
+  <div id="edit-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center hidden z-50 p-4 no-print">
+    <div class="bg-white rounded-2xl border border-gray-100 max-w-lg w-full overflow-hidden shadow-2xl animate-fade-in">
+      <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+        <h4 class="text-xs font-extrabold uppercase tracking-widest text-[#004173] flex items-center gap-1.5">
+          <i data-lucide="edit" class="w-4 h-4"></i>
+          <span>Update Student Parameters</span>
+        </h4>
+        <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="edit-form" onsubmit="handleEditFormSubmit(event)" class="p-6 space-y-4">
+        <input type="hidden" id="edit-regId">
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-1">
+            <label class="text-[10px] font-bold text-gray-600 block">First Name</label>
+            <input type="text" id="edit-first" required class="w-full text-xs px-3 py-2 border bg-gray-50/50 rounded-lg">
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] font-bold text-gray-600 block">Last Name</label>
+            <input type="text" id="edit-last" required class="w-full text-xs px-3 py-2 border bg-gray-50/50 rounded-lg">
+          </div>
+          <div class="col-span-2 space-y-1">
+            <label class="text-[10px] font-bold text-gray-600 block">Residential Address</label>
+            <input type="text" id="edit-address" required class="w-full text-xs px-3 py-2 border bg-gray-50/50 rounded-lg">
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] font-bold text-gray-600 block">Verification Status</label>
+            <select id="edit-status" class="w-full text-xs px-2 py-2 border rounded-lg bg-white font-bold text-gray-700">
+              <option value="Pending">Pending</option>
+              <option value="Verified">Verified</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="text-[10px] font-bold text-gray-600 block">Installment/Due Surcharge Date</label>
+            <input type="date" id="edit-due-date" class="w-full text-xs px-2 py-2 border rounded-lg bg-white">
+          </div>
+        </div>
+
+        <div class="pt-4 border-t flex justify-end gap-2">
+          <button type="button" onclick="closeEditModal()" class="px-4 py-2 border text-gray-700 rounded-lg text-xs font-bold font-sans">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-[#004173] text-white rounded-lg text-xs font-bold font-sans">Apply Overrides</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST ALERTS NOTIFIER -->
+  <div id="toast-wrapper" class="fixed bottom-6 right-6 space-y-3 z-50 max-w-sm pointer-events-none no-print">
+    <!-- Managed dynamically via alert handlers -->
+  </div>
+
+  <footer class="bg-slate-900 border-t border-slate-950 py-6 text-center text-[10px] text-slate-500 font-semibold uppercase tracking-widest leading-none mt-12 no-print">
+    &copy; 2026 STP Learning Hub · All Academic Rights Security Enforced
+  </footer>
+
+  <!-- DYNAMIC CORE JAVASCRIPT STATE ENGINE -->
+  <script>
+    // 0. Static Course Parameters Matching Main App
+    const COURSES = [
+      { id: '1', name: 'Web Design & Development', category: 'Technical', baseFee: 35000, minFee: 25000, milOfficerBaseFee: 30000, milOfficerMinFee: 22000, milJcoBaseFee: 25000, milJcoMinFee: 18000, instructorName: 'Muhammad Asad' },
+      { id: '2', name: 'Mobile App Development', category: 'Technical', baseFee: 45000, minFee: 35000, milOfficerBaseFee: 40000, milOfficerMinFee: 30000, milJcoBaseFee: 35000, milJcoMinFee: 25000, instructorName: 'Muhammad Asad' },
+      { id: '3', name: 'Network & Cyber Security', category: 'Technical', baseFee: 40000, minFee: 30000, milOfficerBaseFee: 35000, milOfficerMinFee: 25000, milJcoBaseFee: 30000, milJcoMinFee: 20000, instructorName: 'Muhammad Haider Tallal' },
+      { id: '4', name: 'eBay & TikTok Shop Mastery', category: 'Non-Technical', baseFee: 30000, minFee: 20000, milOfficerBaseFee: 25000, milOfficerMinFee: 18000, milJcoBaseFee: 20000, milJcoMinFee: 15000, instructorName: 'Faizan Ali' },
+      { id: '5', name: 'Freelancing & Digital Marketing', category: 'Non-Technical', baseFee: 25000, minFee: 15000, milOfficerBaseFee: 20000, milOfficerMinFee: 12000, milJcoBaseFee: 15000, milJcoMinFee: 10000, instructorName: 'Ushna Shahid' },
+      { id: '6', name: 'Cloud Computing & DevOps', category: 'Technical', baseFee: 50000, minFee: 40000, milOfficerBaseFee: 45000, milOfficerMinFee: 35000, milJcoBaseFee: 40000, milJcoMinFee: 30000, instructorName: 'Muhammad Haider Tallal' },
+      { id: '7', name: 'Graphic Design & UI/UX', category: 'Non-Technical', baseFee: 28000, minFee: 18000, milOfficerBaseFee: 24000, milOfficerMinFee: 15000, milJcoBaseFee: 18000, milJcoMinFee: 12000, instructorName: 'Anila Rajpout' }
+    ];
+
+    // 1. Initial State Data seeding
+    const INITIAL_RECORDS = [
+      {
+        regId: 'STP-42790',
+        firstName: 'Farhana',
+        lastName: 'Naz',
+        fatherName: 'Muhammad Rasikh',
+        mobile: '03012948192',
+        cnic: '37405-2849182-1',
+        email: 'farhana.stp@gmail.com',
+        address: 'Satellite Town Commercial Block A, Rawalpindi',
+        gender: 'Female',
+        laptop: 'Yes',
+        paymentPlan: 'Installment',
+        civilStatus: 'Public Sector Officer',
+        discount: 3000,
+        totalFee: 42000, // (30k tuition + 15k laptop - 3k rebate)
+        baseFee: 30000,
+        laptopFee: 15000,
+        status: 'Verified',
+        nextDueDate: '2026-06-30',
+        createdAt: '2026-05-18T10:00:00.000Z'
+      },
+      {
+        regId: 'STP-88204',
+        firstName: 'Khurram',
+        lastName: 'Riaz',
+        fatherName: 'Riaz Ahmed',
+        mobile: '03417316041',
+        cnic: '37402-1249122-3',
+        email: 'khurram.riaz@yahoo.com',
+        address: 'Chungi No. 22 near Askari Boulevard, Rawalpindi Cantt',
+        gender: 'Male',
+        laptop: 'No',
+        paymentPlan: 'Full',
+        civilStatus: 'Civil Independent',
+        discount: 0,
+        totalFee: 30000,
+        baseFee: 30000,
+        laptopFee: 0,
+        status: 'Verified',
+        nextDueDate: '',
+        createdAt: '2026-05-19T14:24:00.000Z'
+      },
+      {
+        regId: 'STP-11009',
+        firstName: 'Sajid',
+        lastName: 'Mahmood',
+        fatherName: 'Mahmood Ali',
+        mobile: '03212849182',
+        cnic: '33102-1284912-7',
+        email: 'sajid.it@outlook.com',
+        address: 'D-Ground Commercial Block, Faisalabad',
+        gender: 'Male',
+        laptop: 'Yes',
+        paymentPlan: 'Installment',
+        civilStatus: 'Civil Independent',
+        discount: 0,
+        totalFee: 45000,
+        baseFee: 30000,
+        laptopFee: 15000,
+        status: 'Pending',
+        nextDueDate: '2026-06-15',
+        createdAt: '2026-05-20T08:15:00.000Z'
+      },
+      {
+        regId: 'STP-91228',
+        firstName: 'Ayesha',
+        lastName: 'Siddequa',
+        fatherName: 'Tariq Javed',
+        mobile: '03120481232',
+        cnic: '37405-9981291-2',
+        email: 'ayesha.j@outlook.com',
+        address: 'Main Peshawar Road behind Army Range, Rawalpindi',
+        gender: 'Female',
+        laptop: 'No',
+        paymentPlan: 'Full',
+        civilStatus: 'Active Academician',
+        discount: 5000,
+        totalFee: 25000,
+        baseFee: 30000,
+        laptopFee: 0,
+        status: 'Pending',
+        nextDueDate: '',
+        createdAt: '2026-05-20T19:45:00.000Z'
+      }
+    ];
+
+    let records = [];
+    let currentRole = 'student'; // 'student' or 'admin'
+    let currentPaymentPlan = 'Full'; // 'Full' or 'Installment'
+    let activeVoucher = null;
+
+    // Load static content from LocalStorage or seed defaults
+    function init() {
+      // Populate course options dynamically
+      const courseSelect = document.getElementById('form-course');
+      if (courseSelect) {
+        courseSelect.innerHTML = COURSES.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+      }
+
+      const stored = localStorage.getItem('rohi_st_records');
+      if (stored) {
+        records = JSON.parse(stored);
+      } else {
+        records = [...INITIAL_RECORDS];
+        localStorage.setItem('rohi_st_records', JSON.stringify(records));
+      }
+
+      // Load Apps Script configuration
+      const savedUrl = localStorage.getItem('rohi_apps_script_url') || '';
+      const savedAuto = localStorage.getItem('rohi_auto_sheets_sync') === 'true';
+      
+      document.getElementById('sheets-url-input').value = savedUrl;
+      document.getElementById('sheets-autosync-toggle').checked = savedAuto;
+
+      // Populate apps script code box representation
+      document.getElementById('code-snippet-box').innerText = getAppsScriptCodeBody();
+
+      lucide.createIcons();
+      updateDynamicSummary();
+      renderTable();
+      renderAllSVGCharts();
+    }
+
+    // Role Switching Router Actions
+    function switchRole(role) {
+      currentRole = role;
+      
+      const stBtn = document.getElementById('toggle-student');
+      const adBtn = document.getElementById('toggle-admin');
+      
+      const stView = document.getElementById('view-student');
+      const adView = document.getElementById('view-admin');
+      
+      const adminControls = document.getElementById('admin-only-controls');
+      const studentPlanInfo = document.getElementById('student-plan-info');
+      
+      if (role === 'student') {
+        stBtn.className = "role-btn px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-white text-[#004173] shadow-xs";
+        adBtn.className = "role-btn px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-sky-200 hover:text-white";
+        
+        stView.classList.remove('hidden');
+        adView.classList.add('hidden');
+        
+        adminControls.classList.add('hidden');
+        studentPlanInfo.classList.remove('hidden');
+        
+        setPaymentPlan('Full');
+      } else {
+        adBtn.className = "role-btn px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-white text-[#004173] shadow-xs";
+        stBtn.className = "role-btn px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-sky-200 hover:text-white";
+        
+        stView.classList.add('hidden');
+        adView.classList.remove('hidden');
+        
+        adminControls.classList.remove('hidden');
+        studentPlanInfo.classList.add('hidden');
+        
+        renderTable();
+        renderAllSVGCharts();
+      }
+      
+      document.getElementById('view-success').classList.add('hidden');
+      updateDynamicSummary();
+      lucide.createIcons();
+    }
+
+    // Set Payment Schedule Plan
+    function setPaymentPlan(plan) {
+      currentPaymentPlan = plan;
+      const fullBtn = document.getElementById('plan-btn-full');
+      const instBtn = document.getElementById('plan-btn-install');
+      const dueWrapper = document.getElementById('installment-due-wrapper');
+      
+      if (plan === 'Full') {
+        fullBtn.className = "p-3 text-left bg-white border-2 border-[#004173] rounded-xl transition";
+        instBtn.className = "p-3 text-left bg-white border border-gray-200 rounded-xl transition hover:bg-gray-50";
+        dueWrapper.classList.add('hidden');
+      } else {
+        instBtn.className = "p-3 text-left bg-white border-2 border-[#004173] rounded-xl transition";
+        fullBtn.className = "p-3 text-left bg-white border border-gray-200 rounded-xl transition hover:bg-gray-50";
+        dueWrapper.classList.remove('hidden');
+        
+        // Auto default due date 30 days ahead
+        const thirtyDaysAhead = new Date();
+        thirtyDaysAhead.setDate(thirtyDaysAhead.getDate() + 30);
+        document.getElementById('form-due-date').value = thirtyDaysAhead.toISOString().split('T')[0];
+      }
+      updateDynamicSummary();
+    }
+
+    // Dynamic Concession Matrix and Calculations Engine
+    function calculateTotalFeeForHtml(courseName, laptopRequired, civilStatus, discountAmount, milCategory) {
+      const found = COURSES.find(c => c.name === courseName) || { baseFee: 30000, minFee: 20000 };
+      
+      let base = found.baseFee;
+      let minCapVal = found.minFee;
+      
+      if (civilStatus === 'Military') {
+        if (milCategory === 'Officer') {
+          base = found.milOfficerBaseFee ?? found.baseFee;
+          minCapVal = found.milOfficerMinFee ?? found.minFee;
+        } else if (milCategory === 'JCO') {
+          base = found.milJcoBaseFee ?? found.baseFee;
+          minCapVal = found.milJcoMinFee ?? found.minFee;
+        }
+      } else if (civilStatus === 'Government Employee Child') {
+        base = Math.round(found.baseFee * 0.85);
+      } else if (civilStatus === 'STP Alumnus') {
+        base = Math.round(found.baseFee * 0.90);
+      } else if (civilStatus === 'Disabled / Special') {
+        base = minCapVal;
+      }
+      
+      const laptop = laptopRequired === 'Yes' ? 15000 : 0;
+      const discount = discountAmount || 0;
+      const rawTotal = base + laptop - discount;
+      
+      // Ensure it does not drop below floor limit cap
+      const minAcceptableTotal = minCapVal + laptop;
+      const total = Math.max(rawTotal, minAcceptableTotal);
+      
+      const firstInstallment = Math.round(total / 2);
+      const secondInstallment = total - firstInstallment;
+      
+      return {
+        base,
+        minFee: minCapVal,
+        laptop,
+        discount,
+        total,
+        firstInstallment,
+        secondInstallment
+      };
+    }
+
+    function onCivilStatusChange() {
+      const civil = document.getElementById('form-civil').value;
+      const milPanel = document.getElementById('form-mil-panel');
+      if (civil === 'Military') {
+        milPanel.classList.remove('hidden');
+      } else {
+        milPanel.classList.add('hidden');
+      }
+      updateDynamicSummary();
+    }
+
+    function onCourseChange() {
+      // Re-zero promo discounts to avoid any floor cap issues upon course swap
+      const discInput = document.getElementById('form-discount');
+      if (discInput) {
+        discInput.value = 0;
+      }
+      updateDynamicSummary();
+    }
+
+    // Dynamic Live Billing Summary Compute
+    function updateDynamicSummary() {
+      const courseSelect = document.getElementById('form-course');
+      const courseName = courseSelect ? courseSelect.value : (COURSES[0]?.name || 'Web Design & Development');
+      
+      const isLaptop = document.getElementById('form-laptop').checked;
+      const laptopRequired = isLaptop ? 'Yes' : 'No';
+      
+      let discount = 0;
+      let civil = 'Civil';
+      let milCategory = 'Officer';
+      
+      if (currentRole === 'admin') {
+        const discInput = document.getElementById('form-discount');
+        const civilSelect = document.getElementById('form-civil');
+        const milCategorySelect = document.getElementById('form-mil-category');
+        
+        discount = discInput ? (parseInt(discInput.value) || 0) : 0;
+        civil = civilSelect ? (civilSelect.value || 'Civil') : 'Civil';
+        milCategory = milCategorySelect ? (milCategorySelect.value || 'Officer') : 'Officer';
+      }
+      
+      const fees = calculateTotalFeeForHtml(courseName, laptopRequired, civil, discount, civil === 'Military' ? milCategory : undefined);
+      
+      document.getElementById('widget-laptop-fee').innerText = `${fees.laptop.toLocaleString()} PKR`;
+      document.getElementById('widget-discount').innerText = `-${fees.discount.toLocaleString()} PKR`;
+      document.getElementById('widget-total').innerText = `${fees.total.toLocaleString()} PKR`;
+
+      // Update payment plan summary button texts
+      const planBtnInstall = document.getElementById('plan-btn-install');
+      if (planBtnInstall) {
+        const spanDesc = planBtnInstall.querySelector('span:last-child');
+        if (spanDesc) {
+          spanDesc.innerText = `1st installment: ${fees.firstInstallment.toLocaleString()} PKR due now`;
+        }
+      }
+      const planBtnFull = document.getElementById('plan-btn-full');
+      if (planBtnFull) {
+        const spanDesc = planBtnFull.querySelector('span:last-child');
+        if (spanDesc) {
+          spanDesc.innerText = `Pay all ${fees.total.toLocaleString()} PKR upfront`;
+        }
+      }
+    }
+
+    // Automatic format for National identity card number
+    function formatCNIC(input) {
+      let val = input.value.replace(/\D/g, ''); // strip spaces, symbols
+      let formatted = '';
+      
+      if (val.length > 0) {
+        formatted += val.substring(0, 5);
+      }
+      if (val.length > 5) {
+        formatted += '-' + val.substring(5, 12);
+      }
+      if (val.length > 12) {
+        formatted += '-' + val.substring(12, 13);
+      }
+      input.value = formatted;
+    }
+
+    // Submit core enrollment form handler
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      
+      const first = document.getElementById('form-first').value.trim();
+      const last = document.getElementById('form-last').value.trim();
+      const father = document.getElementById('form-father').value.trim();
+      const mobile = document.getElementById('form-mobile').value.trim();
+      const cnic = document.getElementById('form-cnic').value.trim();
+      const email = document.getElementById('form-email').value.trim();
+      const address = document.getElementById('form-address').value.trim();
+      const gender = document.getElementById('form-gender').value;
+      const laptop = document.getElementById('form-laptop').checked ? 'Yes' : 'No';
+      
+      // Val
+      if (mobile.length < 11) {
+        showToast('🔒 Please enter a valid 11-digit mobile starting with 03.', 'err');
+        return;
+      }
+      if (cnic.length < 15) {
+        showToast('🔒 CNIC format must align properly with identity cards.', 'err');
+        return;
+      }
+
+      const courseName = document.getElementById('form-course').value;
+      let discount = 0;
+      let civil = 'Civil';
+      let milCategory = 'Officer';
+      let milRank = '';
+      let milUnit = '';
+      let milName = '';
+      let milRelation = '';
+      let plan = currentPaymentPlan;
+      let due = plan === 'Installment' ? document.getElementById('form-due-date').value : '';
+
+      if (currentRole === 'admin') {
+        const discEl = document.getElementById('form-discount');
+        const civilEl = document.getElementById('form-civil');
+        discount = discEl ? (parseInt(discEl.value) || 0) : 0;
+        civil = civilEl ? (civilEl.value || 'Civil') : 'Civil';
+        
+        if (civil === 'Military') {
+          milCategory = document.getElementById('form-mil-category').value;
+          milRank = document.getElementById('form-mil-rank').value.trim();
+          milUnit = document.getElementById('form-mil-unit').value.trim();
+          milName = document.getElementById('form-mil-name').value.trim();
+          milRelation = document.getElementById('form-mil-relation').value.trim();
+        }
+      }
+
+      const fees = calculateTotalFeeForHtml(courseName, laptop, civil, discount, civil === 'Military' ? milCategory : undefined);
+      const randomID = `STP-${Math.floor(10000 + Math.random() * 90000)}`;
+
+      const newRecord = {
+        regId: randomID,
+        firstName: first,
+        lastName: last,
+        fatherName: father,
+        mobile: mobile,
+        cnic: cnic,
+        email: email,
+        address: address,
+        gender: gender,
+        laptop: laptop,
+        paymentPlan: plan,
+        civilStatus: civil,
+        discount: fees.discount,
+        totalFee: fees.total,
+        baseFee: fees.base,
+        laptopFee: fees.laptop,
+        course: courseName,
+        milCategory: civil === 'Military' ? milCategory : '',
+        milRank: civil === 'Military' ? milRank : '',
+        milUnit: civil === 'Military' ? milUnit : '',
+        milName: civil === 'Military' ? milName : '',
+        milRelation: civil === 'Military' ? milRelation : '',
+        status: 'Pending',
+        nextDueDate: due,
+        createdAt: new Date().toISOString()
+      };
+
+      records = [newRecord, ...records];
+      localStorage.setItem('rohi_st_records', JSON.stringify(records));
+
+      // Trigger automatic apps script connector sync if configured
+      const autoSync = localStorage.getItem('rohi_auto_sheets_sync') === 'true';
+      const appsUrl = localStorage.getItem('rohi_apps_script_url') || '';
+      if (autoSync && appsUrl) {
+        syncRecordToSheets(newRecord, appsUrl);
+      }
+
+      // Build Success Voucher and Switch view
+      displayVoucherReceipt(newRecord);
+      resetForm();
+      showToast('Registration submitted! Dual-copy voucher prepared.', 'success');
+    }
+
+    // Display billing voucher details
+    function displayVoucherReceipt(record) {
+      activeVoucher = record;
+      
+      document.getElementById('view-student').classList.add('hidden');
+      document.getElementById('view-admin').classList.add('hidden');
+      document.getElementById('view-success').classList.remove('hidden');
+
+      // Sync DOM fields
+      const mapField = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = text;
+      }
+
+      const firstInstVal = Math.round(record.totalFee / 2);
+      const secondInstVal = record.totalFee - firstInstVal;
+
+      // Applicant Copy
+      mapField('v-reg-id', record.regId);
+      mapField('v-createdAt', new Date(record.createdAt).toLocaleDateString());
+      mapField('v-plan', record.paymentPlan === 'Full' ? 'Full Package' : '2 Installments');
+      mapField('v-fullname', `${record.firstName} ${record.lastName}`);
+      mapField('v-father', record.fatherName);
+      mapField('v-cnic', record.cnic);
+      mapField('v-mobile', record.mobile);
+      mapField('v-email', record.email);
+      mapField('v-address', record.address);
+      mapField('v-course', record.course || 'Web Design & Development');
+      mapField('v-base', `${record.baseFee.toLocaleString()} PKR`);
+      mapField('v-laptop-fee', `${record.laptopFee.toLocaleString()} PKR`);
+      mapField('v-discount-fee', `-${record.discount.toLocaleString()} PKR`);
+      mapField('v-net', `${record.totalFee.toLocaleString()} PKR`);
+
+      if (record.paymentPlan === 'Installment') {
+        mapField('v-installment-1', `${firstInstVal.toLocaleString()} PKR`);
+        mapField('v-installment-2', `${secondInstVal.toLocaleString()} PKR`);
+        const wrapper1 = document.getElementById('v-installment-wrapper');
+        if (wrapper1) wrapper1.classList.remove('hidden');
+      } else {
+        const wrapper1 = document.getElementById('v-installment-wrapper');
+        if (wrapper1) wrapper1.classList.add('hidden');
+      }
+
+      // Office Copy
+      mapField('v2-reg-id', record.regId);
+      mapField('v2-createdAt', new Date(record.createdAt).toLocaleDateString());
+      mapField('v2-plan', record.paymentPlan === 'Full' ? 'Full Package' : '2 Installments');
+      mapField('v2-fullname', `${record.firstName} ${record.lastName}`);
+      mapField('v2-father', record.fatherName);
+      mapField('v2-cnic', record.cnic);
+      mapField('v2-mobile', record.mobile);
+      mapField('v2-email', record.email);
+      mapField('v2-address', record.address);
+      mapField('v2-course', record.course || 'Web Design & Development');
+      mapField('v2-base', `${record.baseFee.toLocaleString()} PKR`);
+      mapField('v2-laptop-fee', `${record.laptopFee.toLocaleString()} PKR`);
+      mapField('v2-discount-fee', `-${record.discount.toLocaleString()} PKR`);
+      mapField('v2-net', `${record.totalFee.toLocaleString()} PKR`);
+
+      if (record.paymentPlan === 'Installment') {
+        mapField('v2-installment-1', `${firstInstVal.toLocaleString()} PKR`);
+        mapField('v2-installment-2', `${secondInstVal.toLocaleString()} PKR`);
+        const wrapper2 = document.getElementById('v2-installment-wrapper');
+        if (wrapper2) wrapper2.classList.remove('hidden');
+      } else {
+        const wrapper2 = document.getElementById('v2-installment-wrapper');
+        if (wrapper2) wrapper2.classList.add('hidden');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Return to form desk
+    function returnToForm() {
+      document.getElementById('view-success').classList.add('hidden');
+      if (currentRole === 'student') {
+        document.getElementById('view-student').classList.remove('hidden');
+      } else {
+        document.getElementById('view-admin').classList.remove('hidden');
+      }
+    }
+
+    // Trigger Print layout modal directly
+    function printVoucher() {
+      window.print();
+    }
+
+    // Reset coordinates helper
+    function resetForm() {
+      document.getElementById('enrolment-form').reset();
+      document.getElementById('form-laptop').checked = false;
+      if (currentRole === 'admin') {
+        document.getElementById('form-discount').value = '0';
+        document.getElementById('form-civil').value = '';
+        setPaymentPlan('Full');
+      }
+      updateDynamicSummary();
+    }
+
+    // ── ADMINISTRATIVE OPERATIONS GRID ──
+    function renderTable() {
+      const tbody = document.getElementById('registry-table-body');
+      const query = document.getElementById('admin-search').value.toLowerCase();
+      tbody.innerHTML = '';
+
+      const filtered = records.filter(r => {
+        return (
+          r.regId.toLowerCase().includes(query) ||
+          r.firstName.toLowerCase().includes(query) ||
+          r.lastName.toLowerCase().includes(query) ||
+          r.cnic.includes(query) ||
+          r.mobile.includes(query)
+        );
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-8 text-center text-gray-400 font-medium">
+              No correlating roster records found.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      filtered.forEach(r => {
+        const isVerified = r.status === 'Verified';
+        const row = document.createElement('tr');
+        row.className = "hover:bg-gray-50/50 transition border-b border-gray-50";
+        row.innerHTML = `
+          <td class="py-4 px-4 font-mono font-bold text-gray-905">
+            <div>${r.regId}</div>
+            <div class="text-[9px] text-[#2491bf] font-semibold mt-0.5">${new Date(r.createdAt).toLocaleDateString()}</div>
+          </td>
+          <td class="py-4 px-4">
+            <div class="font-bold text-gray-900">${r.firstName} ${r.lastName}</div>
+            <div class="text-[10px] text-gray-400 font-semibold font-mono mt-0.5">${r.mobile} · ${r.cnic}</div>
+          </td>
+          <td class="py-4 px-4">
+            <div class="font-semibold text-gray-700 text-[11px]">${r.paymentPlan === 'Full' ? 'Full billing coverage' : 'Split Installments'}</div>
+            <div class="text-[9px] text-gray-400 font-semibold font-mono mt-0.5">Asset: ${r.laptop} laptop Surch.</div>
+          </td>
+          <td class="py-4 px-4 font-mono font-extrabold text-stone-900">
+            <div>${r.totalFee.toLocaleString()} PKR</div>
+            ${r.discount > 0 ? `<div class="text-[9px] text-emerald-600 font-semibold mt-0.5">-${r.discount.toLocaleString()} Dis.</div>` : ''}
+          </td>
+          <td class="py-4 px-4">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] font-bold border ${
+              isVerified 
+                ? 'bg-emerald-50 text-emerald-800 border-emerald-100' 
+                : 'bg-amber-50 text-amber-800 border-amber-100'
+            }">
+              <span class="w-1 px-1 py-1 rounded-full ${isVerified ? 'bg-emerald-500' : 'bg-amber-500'} block"></span>
+              <span>${r.status.toUpperCase()}</span>
+            </span>
+          </td>
+          <td class="py-4 px-4 text-right space-x-1.5 whitespace-nowrap">
+            ${!isVerified ? `
+              <button onclick="instantVerifyStatus('${r.regId}')" class="px-2.5 py-1 text-[10px] font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded transition cursor-pointer">
+                Verify Slip
+              </button>
+            ` : ''}
+            <button onclick='instantPrintLink(${JSON.stringify(r)})' class="px-2.5 py-1 text-[10px] font-bold bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 rounded transition cursor-pointer">
+              Launch Print
+            </button>
+            <button onclick="launchEditRecord('${r.regId}')" class="px-2 py-1 text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 rounded transition cursor-pointer">
+              ✏️ Options
+            </button>
+          </td>
+        `;
+
+        tbody.appendChild(row);
+      });
+
+      updateStatIndicators();
+    }
+
+    // Direct status confirmation logic
+    function instantVerifyStatus(id) {
+      let matched = null;
+      records = records.map(r => {
+        if (r.regId === id) {
+          matched = { ...r, status: 'Verified' };
+          return matched;
+        }
+        return r;
+      });
+      localStorage.setItem('rohi_st_records', JSON.stringify(records));
+      showToast(`Admission slip ${id} successfully verified.`, 'success');
+      renderTable();
+      renderAllSVGCharts();
+
+      // Background cloud sync
+      const auto = localStorage.getItem('rohi_auto_sheets_sync') === 'true';
+      const appsUrl = localStorage.getItem('rohi_apps_script_url') || '';
+      if (auto && appsUrl && matched) {
+        syncRecordToSheets(matched, appsUrl);
+      }
+    }
+
+    // Trigger Print Success directly for table item
+    function instantPrintLink(record) {
+      displayVoucherReceipt(record);
+    }
+
+    // Metrics updates
+    function updateStatIndicators() {
+      let collected = 0;
+      let pending = 0;
+      let total = 0;
+      let verifiedCount = 0;
+
+      records.forEach(r => {
+        total += r.totalFee;
+        if (r.status === 'Verified') {
+          collected += r.totalFee;
+          verifiedCount++;
+        } else {
+          pending += r.totalFee;
+        }
+      });
+
+      const efficiency = records.length > 0 ? Math.round((verifiedCount / records.length) * 100) : 0;
+      const average = records.length > 0 ? Math.round(total / records.length) : 0;
+
+      document.getElementById('stat-efficiency').innerText = `${efficiency}%`;
+      document.getElementById('stat-gross').innerText = `${total.toLocaleString()} PKR`;
+      
+      document.getElementById('metric-collected').innerText = `${collected.toLocaleString()} PKR`;
+      document.getElementById('metric-pending').innerText = `${pending.toLocaleString()} PKR`;
+      document.getElementById('metric-average').innerText = `${average.toLocaleString()} PKR`;
+    }
+
+    // ✏️ UPDATE/EDIT RECORD ACTIONS
+    function launchEditRecord(id) {
+      const rec = records.find(r => r.regId === id);
+      if (!rec) return;
+
+      document.getElementById('edit-regId').value = rec.regId;
+      document.getElementById('edit-first').value = rec.firstName;
+      document.getElementById('edit-last').value = rec.lastName;
+      document.getElementById('edit-address').value = rec.address;
+      document.getElementById('edit-status').value = rec.status;
+      document.getElementById('edit-due-date').value = rec.nextDueDate || '';
+
+      document.getElementById('edit-modal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('edit-modal').classList.add('hidden');
+    }
+
+    function handleEditFormSubmit(e) {
+      e.preventDefault();
+      
+      const id = document.getElementById('edit-regId').value;
+      const first = document.getElementById('edit-first').value.trim();
+      const last = document.getElementById('edit-last').value.trim();
+      const address = document.getElementById('edit-address').value.trim();
+      const status = document.getElementById('edit-status').value;
+      const due = document.getElementById('edit-due-date').value;
+
+      let updatedRec = null;
+      records = records.map(r => {
+        if (r.regId === id) {
+          updatedRec = {
+            ...r,
+            firstName: first,
+            lastName: last,
+            address: address,
+            status: status,
+            nextDueDate: due
+          };
+          return updatedRec;
+        }
+        return r;
+      });
+
+      localStorage.setItem('rohi_st_records', JSON.stringify(records));
+      showToast(`Record ${id} coordinates override processed securely.`, 'success');
+      closeEditModal();
+      renderTable();
+      renderAllSVGCharts();
+
+      // Cloud Push sync
+      const auto = localStorage.getItem('rohi_auto_sheets_sync') === 'true';
+      const appsUrl = localStorage.getItem('rohi_apps_script_url') || '';
+      if (auto && appsUrl && updatedRec) {
+        syncRecordToSheets(updatedRec, appsUrl);
+      }
+    }
+
+    // ── NATIVE INTERACTIVE SVG CHARTS RENDERING ENGINE ──
+    function renderAllSVGCharts() {
+      renderTrendChart();
+      renderDonutChart();
+      renderRevenueBarChart();
+    }
+
+    // Chart 1: Signup dynamic Trend line (SVG Pathing)
+    function renderTrendChart() {
+      const container = document.getElementById('chart-signup-container');
+      if (records.length === 0) {
+        container.innerHTML = `<span class="text-xs text-gray-400 font-semibold font-mono">No chronological records captured.</span>`;
+        return;
+      }
+
+      // Group records by local date
+      const dataMap = {};
+      const sorted = [...records].sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt));
+      
+      sorted.forEach(r => {
+        const dateStr = new Date(r.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        dataMap[dateStr] = (dataMap[dateStr] || 0) + 1;
+      });
+
+      const keys = Object.keys(dataMap);
+      const values = Object.values(dataMap);
+      const maxVal = Math.max(...values, 3); // cap view minimum range high
+
+      // Compute SVG Polyline coords vector
+      const paddingX = 40;
+      const paddingY = 25;
+      const svgWidth = 500;
+      const svgHeight = 160;
+
+      const scaleX = (svgWidth - paddingX * 2) / (keys.length > 1 ? keys.length - 1 : 1);
+      const scaleY = (svgHeight - paddingY * 2) / maxVal;
+
+      let points = '';
+      let activeDotsHTML = '';
+      let labelsHTML = '';
+
+      keys.forEach((k, idx) => {
+        const x = paddingX + idx * scaleX;
+        const y = svgHeight - paddingY - (dataMap[k] * scaleY);
+        points += `${x},${y} `;
+
+        // Dynamic points circle elements
+        activeDotsHTML += `
+          <circle cx="${x}" cy="${y}" r="4" fill="#fff" stroke="#10b981" stroke-width="2.5" class="transition hover:r-6 cursor-pointer" />
+          <text x="${x}" y="${y - 10}" font-family="Poppins" font-size="9" font-weight="700" fill="#0f172a" text-anchor="middle">${dataMap[k]}</text>
+        `;
+
+        // Chronological labels
+        labelsHTML += `
+          <text x="${x}" y="${svgHeight - 6}" font-family="Poppins" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="middle">${k}</text>
+        `;
+      });
+
+      const gridLines = `
+        <line x1="${paddingX}" y1="${paddingY}" x2="${svgWidth - paddingX}" y2="${paddingY}" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+        <line x1="${paddingX}" y1="${(svgHeight)/2}" x2="${svgWidth - paddingX}" y2="${(svgHeight)/2}" stroke="#e2e8f0" stroke-dasharray="3 3"/>
+        <line x1="${paddingX}" y1="${svgHeight - paddingY}" x2="${svgWidth - paddingX}" y2="${svgHeight - paddingY}" stroke="#e2e8f0" stroke-width="1.5"/>
+      `;
+
+      container.innerHTML = `
+        <svg viewBox="0 0 ${svgWidth} ${svgHeight}" class="w-full h-full">
+          ${gridLines}
+          <polyline fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" points="${points}" />
+          ${activeDotsHTML}
+          ${labelsHTML}
+        </svg>
+      `;
+    }
+
+    // Chart 2: Status distribution Donut (SVG Circular gauge)
+    function renderDonutChart() {
+      const container = document.getElementById('chart-status-container');
+      
+      let verified = 0;
+      let pending = 0;
+      records.forEach(r => {
+        if (r.status === 'Verified') verified++;
+        else pending++;
+      });
+
+      document.getElementById('donut-lbl-verified').innerText = `(${verified})`;
+      document.getElementById('donut-lbl-pending').innerText = `(${pending})`;
+
+      const totalPool = verified + pending;
+      if (totalPool === 0) {
+        container.innerHTML = `<span class="text-xs text-slate-400 font-bold uppercase font-mono">No Active Pool</span>`;
+        return;
+      }
+
+      // Pie Segment Arcs Math computation
+      const radius = 50;
+      const circumference = 2 * Math.PI * radius; // 314.159
+      
+      const verifiedPCT = verified / totalPool;
+      const pendingPCT = pending / totalPool;
+
+      const verifiedStrokeDash = verifiedPCT * circumference;
+      const pendingStrokeDash = pendingPCT * circumference;
+
+      // Circle segment strokes
+      container.innerHTML = `
+        <svg viewBox="0 0 140 140" class="w-full h-full transform -rotate-90">
+          <!-- Backdrop background rail track circle -->
+          <circle cx="70" cy="70" r="${radius}" fill="transparent" stroke="#f1f5f9" stroke-width="11" />
+          
+          <!-- Verified green arc -->
+          <circle cx="70" cy="70" r="${radius}" fill="transparent" stroke="#10b981" stroke-width="11" 
+                  stroke-dasharray="${verifiedStrokeDash} ${circumference - verifiedStrokeDash}" 
+                  stroke-dashoffset="0" stroke-linecap="round"/>
+          
+          <!-- Pending amber arc -->
+          <circle cx="70" cy="70" r="${radius}" fill="transparent" stroke="#f59e0b" stroke-width="11" 
+                  stroke-dasharray="${pendingStrokeDash} ${circumference - pendingStrokeDash}" 
+                  stroke-dashoffset="-${verifiedStrokeDash}" stroke-linecap="round"/>
+        </svg>
+        <div class="absolute text-center">
+          <span class="text-[9px] text-[#94a3b8] font-bold uppercase tracking-widest block font-mono">Ledger Pool</span>
+          <span class="text-xl font-extrabold text-[#004173] leading-none">${totalPool}</span>
+        </div>
+      `;
+    }
+
+    // Chart 3: Collected vs Pending dual Revenue comparison (Bar Charting)
+    function renderRevenueBarChart() {
+      const container = document.getElementById('chart-revenue-container');
+      
+      let collectedFull = 0;
+      let collectedInst = 0;
+      let pendingFull = 0;
+      let pendingInst = 0;
+
+      records.forEach(r => {
+        const isVerified = r.status === 'Verified';
+        const isInst = r.paymentPlan === 'Installment';
+
+        if (isVerified) {
+          if (isInst) collectedInst += r.totalFee;
+          else collectedFull += r.totalFee;
+        } else {
+          if (isInst) pendingInst += r.totalFee;
+          else pendingFull += r.totalFee;
+        }
+      });
+
+      const maxRev = Math.max(collectedFull, collectedInst, pendingFull, pendingInst, 10000);
+
+      // SVG scaling setup
+      const svgWidth = 500;
+      const svgHeight = 160;
+      const paddingX = 50;
+      const paddingY = 20;
+
+      const barSpace = (svgWidth - paddingX * 2) / 2; // division room
+      const barWidth = 40;
+      const scaleHeight = (svgHeight - paddingY * 2) / maxRev;
+
+      // Group 1: Full Payment (Index 0)
+      const h1_col = collectedFull * scaleHeight;
+      const h1_pen = pendingFull * scaleHeight;
+
+      // Group 2: Installments (Index 1)
+      const h2_col = collectedInst * scaleHeight;
+      const h2_pen = pendingInst * scaleHeight;
+
+      container.innerHTML = `
+        <svg viewBox="0 0 ${svgWidth} ${svgHeight}" class="w-full h-full">
+          <!-- Horizontal dashed lines grid guidelines -->
+          <line x1="${paddingX}" y1="${paddingY}" x2="${svgWidth - paddingX}" y2="${paddingY}" stroke="#f1f5f9" stroke-width="1"/>
+          <line x1="${paddingX}" y1="${svgHeight/2}" x2="${svgWidth - paddingX}" y2="${svgHeight/2}" stroke="#f1f5f9" stroke-dasharray="2 2" stroke-width="1"/>
+          <line x1="${paddingX}" y1="${svgHeight - paddingY}" x2="${svgWidth - paddingX}" y2="${svgHeight - paddingY}" stroke="#cbd5e1" stroke-width="1.5"/>
+
+          <!-- GROUP 1: FULL PAYMENT BARS -->
+          <!-- Collected -->
+          <rect x="${paddingX + 30}" y="${svgHeight - paddingY - h1_col}" width="${barWidth}" height="${h1_col}" fill="#10b981" rx="4" />
+          <text x="${paddingX + 50}" y="${svgHeight - paddingY - h1_col - 5}" font-family="Poppins" font-size="8" font-weight="700" fill="#1e293b" text-anchor="middle">${collectedFull / 1000}k</text>
+          
+          <!-- Pending -->
+          <rect x="${paddingX + 75}" y="${svgHeight - paddingY - h1_pen}" width="${barWidth}" height="${h1_pen}" fill="#f59e0b" rx="4" />
+          <text x="${paddingX + 95}" y="${svgHeight - paddingY - h1_pen - 5}" font-family="Poppins" font-size="8" font-weight="700" fill="#1e293b" text-anchor="middle">${pendingFull / 1000}k</text>
+
+          <text x="${paddingX + 62}" y="${svgHeight - 4}" font-family="Poppins" font-size="10" font-weight="700" fill="#0f172a" text-anchor="middle">Full Course Plan</text>
+
+
+          <!-- GROUP 2: INSTALLMENT BARS -->
+          <!-- Collected -->
+          <rect x="${paddingX + barSpace + 30}" y="${svgHeight - paddingY - h2_col}" width="${barWidth}" height="${h2_col}" fill="#10b981" rx="4" />
+          <text x="${paddingX + barSpace + 50}" y="${svgHeight - paddingY - h2_col - 5}" font-family="Poppins" font-size="8" font-weight="700" fill="#1e293b" text-anchor="middle">${collectedInst / 1000}k</text>
+          
+          <!-- Pending -->
+          <rect x="${paddingX + barSpace + 75}" y="${svgHeight - paddingY - h2_pen}" width="${barWidth}" height="${h2_pen}" fill="#f59e0b" rx="4" />
+          <text x="${paddingX + barSpace + 95}" y="${svgHeight - paddingY - h2_pen - 5}" font-family="Poppins" font-size="8" font-weight="700" fill="#1e293b" text-anchor="middle">${pendingInst / 1000}k</text>
+
+          <text x="${paddingX + barSpace + 62}" y="${svgHeight - 4}" font-family="Poppins" font-size="10" font-weight="700" fill="#0f172a" text-anchor="middle">2 Installments Plan</text>
+
+          <!-- Side Color Legends -->
+          <rect x="${svgWidth - 90}" y="4" width="8" height="8" fill="#10b981" rx="1" />
+          <text x="${svgWidth - 78}" y="11" font-family="Poppins" font-size="8" font-weight="600" fill="#64748b">Verified Paid</text>
+
+          <rect x="${svgWidth - 90}" y="16" width="8" height="8" fill="#f59e0b" rx="1" />
+          <text x="${svgWidth - 78}" y="23" font-family="Poppins" font-size="8" font-weight="600" fill="#64748b">Slip Pending</text>
+        </svg>
+      `;
+    }
+
+    // ── GOOGLE SHEETS CONNECTOR LOGIC ──
+    function saveAppsScriptConfig() {
+      const url = document.getElementById('sheets-url-input').value.trim();
+      const auto = document.getElementById('sheets-autosync-toggle').checked;
+      
+      localStorage.setItem('rohi_apps_script_url', url);
+      localStorage.setItem('rohi_auto_sheets_sync', auto ? 'true' : 'false');
+      
+      showToast('Apps Script driver parameters updated.', 'success');
+    }
+
+    async function syncRecordToSheets(record, overrideUrl) {
+      const url = overrideUrl.trim();
+      if (!url) return;
+
+      try {
+        await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            action: 'addRecord',
+            record: {
+              ...record,
+              createdAtFormatted: new Date(record.createdAt).toLocaleString('en-US'),
+              totalFeeFormatted: `${record.totalFee} PKR`
+            }
+          })
+        });
+        console.log('Automated Sync driver pushed successful.');
+      } catch (err) {
+        console.error('Auto Sheets Sync failed:', err);
+      }
+    }
+
+    async function testSheetsConnection() {
+      const url = document.getElementById('sheets-url-input').value.trim();
+      if (!url) {
+        showToast('🔒 Provide a Google Apps Script deployment URL first.', 'err');
+        return;
+      }
+
+      showToast('Testing Web App endpoints availability...', 'info');
+
+      try {
+        await fetch(url, { method: 'GET', mode: 'no-cors' });
+        showToast('Dynamic webhook handshake successful!', 'success');
+      } catch (err) {
+        showToast('Endpoint offline or invalid Apps Script URL.', 'err');
+      }
+    }
+
+    async function triggerBulkSyncToSheets() {
+      const url = document.getElementById('sheets-url-input').value.trim();
+      if (!url) {
+        showToast('🔒 Apps Script deployment URL is required.', 'err');
+        return;
+      }
+
+      const spinner = document.getElementById('sheets-sync-spinner');
+      const statusLbl = document.getElementById('sheets-sync-status');
+      
+      spinner.classList.add('animate-spin');
+      showToast('Bulk uploading records database...', 'info');
+
+      try {
+        const payload = {
+          action: 'bulkSync',
+          records: records.map(r => ({
+            ...r,
+            createdAtFormatted: r.createdAt ? new Date(r.createdAt).toLocaleString('en-US') : '',
+            totalFeeFormatted: `${r.totalFee} PKR`
+          }))
+        };
+
+        await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const timeStr = new Date().toLocaleTimeString();
+        statusLbl.innerText = `Last Bulk Sync: Success at ${timeStr}`;
+        showToast('Google Sheet fully synced with local database state!', 'success');
+      } catch (e) {
+        showToast('Failed to trigger bulk sheet sync.', 'err');
+      } finally {
+        spinner.classList.remove('animate-spin');
+      }
+    }
+
+    function copyAppsScriptCode() {
+      const code = getAppsScriptCodeBody();
+      navigator.clipboard.writeText(code);
+      showToast('Apps Script source code copied!', 'success');
+    }
+
+    // ── NATIVE SYSTEM TOAST ALERTS ──
+    function showToast(message, type = 'success') {
+      const wrapper = document.getElementById('toast-wrapper');
+      const toast = document.createElement('div');
+      
+      let bg = 'bg-slate-900 border-slate-800 text-white';
+      let icon = 'info';
+      
+      if (type === 'success') {
+        bg = 'bg-emerald-950 border-emerald-800 text-emerald-200';
+        icon = 'check';
+      } else if (type === 'err') {
+        bg = 'bg-red-950 border-red-800 text-red-200';
+        icon = 'alert-triangle';
+      }
+
+      toast.className = `${bg} border px-4 py-3 rounded-xl flex items-center gap-2.5 shadow-xl transition-all duration-300 transform scale-95 opacity-0 select-none pointer-events-auto`;
+      toast.innerHTML = `
+        <i data-lucide="${icon}" class="w-4 h-4 flex-shrink-0"></i>
+        <span class="text-xs font-bold leading-normal">${message}</span>
+      `;
+
+      wrapper.appendChild(toast);
+      lucide.createIcons();
+
+      // Trigger pop transition
+      setTimeout(() => {
+        toast.className = toast.className.replace('scale-95 opacity-0', 'scale-100 opacity-100');
+      }, 50);
+
+      // Slide away standard 3.5s
+      setTimeout(() => {
+        toast.className = toast.className.replace('scale-100 opacity-100', 'scale-90 opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // Returning Google Apps Script Raw Source code text representation
+    function getAppsScriptCodeBody() {
+      return `/*
+  ============================================================
+           STP ENROLMENT LEDGER SHEET CONNECTOR SCRIPT
+  ============================================================
+  Instructions for Google Sheets Setup:
+  1. Create a Google Sheet. Name the working sheet tab "Enrolments".
+  2. Select 'Extensions' > 'Apps Script' from the top menu.
+  3. Replace any auto-generated placeholder code with this code.
+  4. Click the 'Save' icon, then click the 'Deploy' button > 'New deployment'.
+  5. Select configuration type: 'Web app'.
+  6. Execute as: 'Me' (your security account email).
+  7. Who has access: 'Anyone' (Required for connection).
+  8. Click Deploy, copy the "Web App URL" and paste into the administrative console!
+*/
+
+function doPost(e) {
+  var sheetName = "Enrolments";
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(sheetName);
+  
+  if (!sheet) {
+    sheet = ss.insertSheet(sheetName);
+    sheet.appendRow([
+      "Application ID", "First Name", "Last Name", "Father Name", "Mobile No", 
+      "CNIC", "Email Address", "Address", "Gender", "Laptop Needed", 
+      "Payment Plan", "Civil Status", "Discount Applied (PKR)", "Net Total Fee (PKR)", 
+      "Base Fee (PKR)", "Laptop Fee (PKR)", "Course", "Ledger Status", "Next Due Date", "Submission Date"
+    ]);
+    sheet.getRange(1, 1, 1, 20).setFontWeight("bold").setBackground("#f3f4f6");
+  }
+  
+  try {
+    var data = JSON.parse(e.postData.contents);
+    
+    if (data.action === "addRecord") {
+      addOrUpdateRecord(sheet, data.record);
+      return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader("Access-Control-Allow-Origin", "*");
+    } 
+    else if (data.action === "bulkSync") {
+      var lastRow = sheet.getLastRow();
+      if (lastRow > 1) {
+        sheet.deleteRows(2, lastRow - 1);
+      }
+      for (var i = 0; i < data.records.length; i++) {
+        addOrUpdateRecord(sheet, data.records[i]);
+      }
+      return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader("Access-Control-Allow-Origin", "*");
+    }
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ error: error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader("Access-Control-Allow-Origin", "*");
+  }
+}
+
+function addOrUpdateRecord(sheet, rec) {
+  var values = sheet.getDataRange().getValues();
+  var existingRowIndex = -1;
+  for (var i = 1; i < values.length; i++) {
+    if (values[i][0].toString() === rec.regId.toString()) {
+      existingRowIndex = i + 1;
+      break;
+    }
+  }
+  
+  var rowData = [
+    rec.regId.toString(), rec.firstName || "", rec.lastName || "", rec.fatherName || "",
+    rec.mobile || "", rec.cnic || "", rec.email || "", rec.address || "", rec.gender || "",
+    rec.laptop || "No", rec.paymentPlan || "Full", rec.civilStatus || "", rec.discount || 0,
+    rec.totalFee || 0, rec.baseFee || 30000, rec.laptopFee || 0, rec.course || "Web Design & Development", rec.status || "Pending",
+    rec.nextDueDate || "", rec.createdAtFormatted || rec.createdAt || new Date().toISOString()
+  ];
+  
+  if (existingRowIndex > -1) {
+    sheet.getRange(existingRowIndex, 1, 1, rowData.length).setValues([rowData]);
+  } else {
+    sheet.appendRow(rowData);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput("STP Ledger Web App connector is working successfully!")
+    .setMimeType(ContentService.MimeType.TEXT)
+    .setHeader("Access-Control-Allow-Origin", "*");
+}`;
+    }
+
+    // Self execution boot
+    window.onload = init;
+  </script>
+</body>
+</html>
